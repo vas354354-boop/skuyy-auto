@@ -30,7 +30,7 @@ async function request<T = unknown>(endpoint: string, options: RequestInit = {})
   try {
     json = await res.json();
   } catch {
-    /* respons bukan JSON */
+    if (res.ok) throw new ApiError('Respons server bukan JSON. Periksa VITE_API_URL (harus berakhiran /api).', res.status);
   }
 
   if (!res.ok) {
